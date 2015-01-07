@@ -1,0 +1,19 @@
+name:           EverCraft
+version:        0.1
+cabal-version:  >= 1.9.2
+author:         Corey Haines
+copyright:      2015 Corey Haines
+license:        MIT
+homepage:       https://github.com/coreyhaines/evercraft_kata
+synopsis:       EverCraft Kata at Codemash
+build-type:     Custom
+
+Test-Suite test-foo
+    type:           exitcode-stdio-1.0
+    hs-source-dirs: test, src
+    main-is:        Test.hs
+    build-depends:  base,
+                    HUnit,
+                    test-framework,
+                    test-framework-hunit,
+    Ghc-Options:    -threaded -O0
