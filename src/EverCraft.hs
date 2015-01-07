@@ -15,30 +15,33 @@ defaultCharacter :: Character
 defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5, abilities=defaultAbilities}
 newCharacter = defaultCharacter
 
+type Roll = Integer
+type Damage = Integer
+
 abilityModifier :: Integer -> Integer
 abilityModifier abilityScore = (abilityScore - 10) `div` 2
 
-modifiedAttackRoll :: Character -> Integer -> Integer
+modifiedAttackRoll :: Character -> Roll -> Roll
 modifiedAttackRoll character originalRoll =
   originalRoll + abilityModifier (strength $ abilities character)
 
-modifiedDamage :: Character -> Integer -> Bool -> Integer
+modifiedDamage :: Character -> Damage -> Bool -> Damage
 modifiedDamage character originalDamage isCriticalHit = if damage < 1 then 1 else damage
   where damage = originalDamage + (abilityModifier (strength $ abilities character)) * if isCriticalHit then 2 else 1
 
 modifiedArmorClass :: Character -> Integer
 modifiedArmorClass character = armorclass character + abilityModifier (dexterity $ abilities character)
 
-subtractHitpoints :: Integer -> Character -> Character
+subtractHitpoints :: Damage -> Character -> Character
 subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
 
 isAlive :: Character -> Bool
 isAlive character = hitpoints character > 0
 
-attackHits :: Integer -> Character -> Bool
+attackHits :: Roll -> Character -> Bool
 attackHits roll character = roll >= armorclass character
 
-attack :: Character -> Integer -> Character
+attack :: Character -> Roll -> Character
 attack character roll
   | roll == 20 = subtractHitpoints 2 character
   | attackHits roll character = subtractHitpoints 1 character
