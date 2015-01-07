@@ -58,9 +58,7 @@ isCriticalHit :: Roll -> Bool
 isCriticalHit roll = roll == criticalRoll
 
 damageForAttack :: Character -> Roll -> Damage
-damageForAttack character roll
-  | isCriticalHit roll = baseCriticalDamage + abilityModifier (strength $ abilities character)
-  | otherwise = baseNoncriticalDamage + abilityModifier (strength $ abilities character)
+damageForAttack character roll = abilityModifier (strength $ abilities character) + if isCriticalHit roll then baseCriticalDamage else baseNoncriticalDamage
 
 runAttack :: Character -> Character -> Roll -> Character
 runAttack player opponent roll = opponent
