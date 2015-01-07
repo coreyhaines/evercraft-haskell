@@ -16,9 +16,12 @@ defaultCharacter :: Character
 defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, damage=0, abilities=defaultAbilities}
 newCharacter = defaultCharacter
 
+maxhitpoints :: Character -> Integer
+maxhitpoints character = if hp < 1 then 1 else hp
+  where hp = baseHitpoints + (abilityModifier (constitution $ abilities character))
+
 hitpoints :: Character -> Integer
-hitpoints character = if hp < 1 then 1 else hp
-  where hp = baseHitpoints + (abilityModifier (constitution $ abilities character)) - damage character
+hitpoints character = maxhitpoints character - damage character
 
 type Roll = Integer
 type Damage = Integer

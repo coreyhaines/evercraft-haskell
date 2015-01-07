@@ -24,8 +24,8 @@ hitpoint_calculation_tests = testGroup "Calculating hitpoints" [
 
 alive_tests :: Test.Framework.Test
 alive_tests = testGroup "Testing the state of a character's life" [
-  {- testCase "More than 0 hitpoints is alive" $ isAlive newCharacter{damage=1} @?= True, -}
-  {- testCase "0 hitpoints is dead" $ isAlive newCharacter{damage=baseHitpoints} @?= False -}
+  testCase "More than 0 hitpoints is alive" $ isAlive newCharacter{damage=(baseHitpoints-1)} @?= True,
+  testCase "0 hitpoints is dead" $ isAlive (addDamage baseHitpoints defaultCharacter) @?= False
   ]
 
 tests = [character_attributes, hitpoint_calculation_tests, alive_tests]
