@@ -10,6 +10,9 @@ defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoin
 
 newCharacter = defaultCharacter
 
+isAlive :: Character -> Bool
+isAlive character = hitpoints character > 0
+
 attackHits :: Character -> Integer -> Bool
 attackHits character roll
   | (armorclass character) <= roll = True
