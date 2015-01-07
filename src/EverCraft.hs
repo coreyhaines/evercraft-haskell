@@ -9,11 +9,16 @@ defaultAbilities :: Abilities
 defaultAbilities = Abilities {strength=10, dexterity=10, constitution=10, wisdom=10, intelligence=10, charisma=10}
 newAbilities = defaultAbilities
 
-data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer, abilities::Abilities}
+baseHitpoints = 5
+data Character = Character {name::String, alignment::Alignment, armorclass, damage::Damage, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
-defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5, abilities=defaultAbilities}
+defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, damage=0, abilities=defaultAbilities}
 newCharacter = defaultCharacter
+
+hitpoints :: Character -> Integer
+hitpoints character = if hp < 1 then 1 else hp
+  where hp = baseHitpoints + (abilityModifier (constitution $ abilities character)) - damage character
 
 type Roll = Integer
 type Damage = Integer
@@ -32,8 +37,8 @@ modifiedDamage character originalDamage isCriticalHit = if damage < 1 then 1 els
 modifiedArmorClass :: Character -> Integer
 modifiedArmorClass character = armorclass character + abilityModifier (dexterity $ abilities character)
 
-subtractHitpoints :: Damage -> Character -> Character
-subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
+addDamage :: Damage -> Character -> Character
+addDamage amount character = character {damage=(damage character + amount)}
 
 isAlive :: Character -> Bool
 isAlive character = hitpoints character > 0
@@ -43,7 +48,7 @@ attackHits roll character = roll >= armorclass character
 
 attack :: Character -> Roll -> Character
 attack character roll
-  | roll == 20 = subtractHitpoints 2 character
-  | attackHits roll character = subtractHitpoints 1 character
+  | roll == 20 = addDamage 2 character
+  | attackHits roll character = addDamage 1 character
   | otherwise = character
 

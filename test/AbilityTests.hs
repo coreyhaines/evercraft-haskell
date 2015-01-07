@@ -61,4 +61,5 @@ dexterity_modifier_tests = testGroup "Dexterity modifier modifies aspects" [
     testCase "Dexterity modifier modifies armor class" $ modifiedArmorClass (newCharacter{armorclass=15, abilities=newAbilities{dexterity=2}}) @?= (15 + abilityModifier 2)
   ]
 
+
 tests = [ability_setting_tests, ability_modifier_tests, strength_modifier_tests, dexterity_modifier_tests]
