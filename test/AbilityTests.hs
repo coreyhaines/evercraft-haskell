@@ -50,7 +50,8 @@ test_modifier score modifier = testCase "modifier score" $ abilityModifier score
 
 strength_modifier_tests :: Test.Framework.Test
 strength_modifier_tests = testGroup "Strength modifier modifies aspects" [
-    testCase "Strength modifier modifies attack roll" $ modifiedAttackRoll (newCharacter{abilities=newAbilities{strength=2}}) 7 @?= (7 + abilityModifier 2)
+    testCase "Strength modifier modifies attack roll" $ modifiedAttackRoll (newCharacter{abilities=newAbilities{strength=2}}) 7 @?= (7 + abilityModifier 2),
+    testCase "Strength modifier modifies damage" $ modifiedDamage (newCharacter{abilities=newAbilities{strength=18}}) 1 @?= (1 + abilityModifier 18)
   ]
 
-tests = [ability_setting_tests, ability_modifier_tests]
+tests = [ability_setting_tests, ability_modifier_tests, strength_modifier_tests]

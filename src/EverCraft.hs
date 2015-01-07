@@ -22,6 +22,10 @@ modifiedAttackRoll :: Character -> Integer -> Integer
 modifiedAttackRoll character original_roll =
   original_roll + abilityModifier (strength $ abilities character)
 
+modifiedDamage :: Character -> Integer -> Integer
+modifiedDamage character original_damage =
+  original_damage + abilityModifier (strength $ abilities character)
+
 subtractHitpoints :: Integer -> Character -> Character
 subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
 
