@@ -9,6 +9,9 @@ defaultAbilities :: Abilities
 defaultAbilities = Abilities {strength=10, dexterity=10, constitution=10, wisdom=10, intelligence=10, charisma=10}
 newAbilities = defaultAbilities
 
+abilityModifier :: Integer -> Integer
+abilityModifier abilityScore = (abilityScore - 10) `div` 2
+
 data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
