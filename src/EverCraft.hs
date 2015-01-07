@@ -14,7 +14,5 @@ isAlive :: Character -> Bool
 isAlive character = hitpoints character > 0
 
 attackHits :: Character -> Integer -> Bool
-attackHits character roll
-  | (armorclass character) <= roll = True
-  | otherwise = False
+attackHits character roll = roll >= armorclass character
 
