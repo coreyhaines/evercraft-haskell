@@ -13,6 +13,6 @@ newCharacter = defaultCharacter
 isAlive :: Character -> Bool
 isAlive character = hitpoints character > 0
 
-attackHits :: Character -> Integer -> Bool
-attackHits character roll = roll >= armorclass character
+attackHits :: Integer -> Character -> Bool
+attackHits roll character = roll >= armorclass character
 
