@@ -26,6 +26,9 @@ modifiedDamage :: Character -> Integer -> Bool -> Integer
 modifiedDamage character originalDamage isCriticalHit = if damage < 1 then 1 else damage
   where damage = originalDamage + (abilityModifier (strength $ abilities character)) * if isCriticalHit then 2 else 1
 
+modifiedArmorClass :: Character -> Integer
+modifiedArmorClass character = armorclass character + abilityModifier (dexterity $ abilities character)
+
 subtractHitpoints :: Integer -> Character -> Character
 subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
 
