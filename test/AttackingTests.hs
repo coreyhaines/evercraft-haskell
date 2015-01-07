@@ -15,15 +15,15 @@ detecting_hit_tests = testGroup "Detecting Hits" [
   ]
 
 beats_armor_class = True @?=
-  attackHits (armorclass c + 1) c
+  attackHits (armorClass c + 1) c
   where c = defaultCharacter
 
 meets_armor_class = True @?=
-  attackHits (armorclass c) c
+  attackHits (armorClass c) c
   where c = defaultCharacter
 
 less_than_armor_class = False @?=
-  attackHits (armorclass c - 1) c
+  attackHits (armorClass c - 1) c
   where c = defaultCharacter
 
 attacking_tests :: Test.Framework.Test
@@ -35,11 +35,11 @@ attacking_tests = testGroup "Attacking" [
 
 no_change_if_not_hit = currentHitpoints c' @?= currentHitpoints c
   where c  = defaultCharacter
-        c' = attack c (armorclass c - 1)
+        c' = attack c (armorClass c - 1)
 
 lose_a_hitpoint = currentHitpoints c' @?= (currentHitpoints c - 1)
   where c  = defaultCharacter
-        c' = attack c (armorclass c + 1)
+        c' = attack c (armorClass c + 1)
 
 natural_20_loses_2_hitpoints = currentHitpoints c' @?= (currentHitpoints c - 2)
   where c  = defaultCharacter

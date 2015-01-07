@@ -58,7 +58,7 @@ strength_modifier_tests = testGroup "Strength modifier modifies aspects" [
 
 dexterity_modifier_tests :: Test.Framework.Test
 dexterity_modifier_tests = testGroup "Dexterity modifier modifies aspects" [
-    testCase "Dexterity modifier modifies armor class" $ modifiedArmorClass (newCharacter{armorclass=15, abilities=newAbilities{dexterity=2}}) @?= (15 + abilityModifier 2)
+    testCase "Dexterity modifier modifies armor class" $ armorClass (newCharacter{abilities=newAbilities{dexterity=2}}) @?= baseArmorClass + abilityModifier 2
   ]
 
 

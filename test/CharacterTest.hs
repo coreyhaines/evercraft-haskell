@@ -9,7 +9,7 @@ import EverCraft
 
 character_attributes :: Test.Framework.Test
 character_attributes = testGroup "Testing Character Attributes" [
-                       testCase "armor class defaults to 10" $ 10 @?=armorclass newCharacter,
+                       testCase "armor class defaults to 10" $ armorClass newCharacter @?= baseArmorClass,
                        testCase "damage defaults to 0" $ 0 @?=damage newCharacter
                        ]
 
