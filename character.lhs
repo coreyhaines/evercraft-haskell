@@ -12,3 +12,7 @@ c
 >
 > data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer}
 >                   deriving Show
+> defaultCharacter :: Character
+> defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5}
+>
+> newCharacter = defaultCharacter
