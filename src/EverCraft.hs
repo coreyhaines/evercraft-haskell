@@ -11,10 +11,10 @@ newAbilities = defaultAbilities
 
 baseHitpoints = 5
 baseArmorClass = 10
-data Character = Character {name::String, alignment::Alignment, damage::Damage, abilities::Abilities}
+data Character = Character {name::String, alignment::Alignment, experience::Integer, damage::Damage, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
-defaultCharacter = Character {name="", alignment=Neutral, damage=0, abilities=defaultAbilities}
+defaultCharacter = Character {name="", alignment=Neutral, experience=0, damage=0, abilities=defaultAbilities}
 newCharacter = defaultCharacter
 
 maxHitpoints :: Character -> Integer

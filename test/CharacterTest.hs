@@ -10,7 +10,8 @@ import EverCraft
 character_attributes :: Test.Framework.Test
 character_attributes = testGroup "Testing Character Attributes" [
                        testCase "armor class defaults to 10" $ armorClass newCharacter @?= baseArmorClass,
-                       testCase "damage defaults to 0" $ 0 @?=damage newCharacter
+                       testCase "damage defaults to 0" $ 0 @?=damage newCharacter,
+                       testCase "experience defaults to 0" $ 0 @?=experience newCharacter
                        ]
 
 hitpoint_calculation_tests :: Test.Framework.Test
