@@ -22,9 +22,9 @@ modifiedAttackRoll :: Character -> Integer -> Integer
 modifiedAttackRoll character original_roll =
   original_roll + abilityModifier (strength $ abilities character)
 
-modifiedDamage :: Character -> Integer -> Integer
-modifiedDamage character original_damage =
-  original_damage + abilityModifier (strength $ abilities character)
+modifiedDamage :: Character -> Integer -> Bool -> Integer
+modifiedDamage character original_damage isCriticalHit = if damage < 1 then 1 else damage
+  where damage = original_damage + (abilityModifier (strength $ abilities character)) * if isCriticalHit then 2 else 1
 
 subtractHitpoints :: Integer -> Character -> Character
 subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
