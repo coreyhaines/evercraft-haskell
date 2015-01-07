@@ -17,7 +17,9 @@ simple_attack_tests = testGroup "Executing attacks with default players" [
 damage_calculation_tests :: Test.Framework.Test
 damage_calculation_tests = testGroup "Calculating the damage for a roll" [
   testCase "Base character with non-critical roll causes 1 damage" $ damageForAttack defaultCharacter 11 @?= baseNoncriticalDamage,
-  testCase "Base character with critical roll causes 2 damage" $ damageForAttack defaultCharacter criticalRoll @?= baseCriticalDamage
+  testCase "Base character with critical roll causes 2 damage" $ damageForAttack defaultCharacter criticalRoll @?= baseCriticalDamage,
+  testCase "Modified character with non-critical roll gets modifier added to damage" $ damageForAttack player{abilities=newAbilities{strength=15}} 11 @?= baseNoncriticalDamage + abilityModifier 15,
+  testCase "Modified character with critical roll gets modifier added to damage" $ damageForAttack player{abilities=newAbilities{strength=15}} criticalRoll @?= baseCriticalDamage + abilityModifier 15
   ]
 
 tests = [simple_attack_tests, damage_calculation_tests]
