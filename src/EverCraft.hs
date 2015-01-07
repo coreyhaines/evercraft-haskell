@@ -9,14 +9,18 @@ defaultAbilities :: Abilities
 defaultAbilities = Abilities {strength=10, dexterity=10, constitution=10, wisdom=10, intelligence=10, charisma=10}
 newAbilities = defaultAbilities
 
-abilityModifier :: Integer -> Integer
-abilityModifier abilityScore = (abilityScore - 10) `div` 2
-
 data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
 defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5, abilities=defaultAbilities}
 newCharacter = defaultCharacter
+
+abilityModifier :: Integer -> Integer
+abilityModifier abilityScore = (abilityScore - 10) `div` 2
+
+modifiedAttackRoll :: Character -> Integer -> Integer
+modifiedAttackRoll character original_roll =
+  original_roll + abilityModifier (strength $ abilities character)
 
 subtractHitpoints :: Integer -> Character -> Character
 subtractHitpoints amount character = character {hitpoints=(hitpoints character - amount)}
