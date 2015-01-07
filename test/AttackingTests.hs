@@ -15,7 +15,7 @@ detecting_hit_tests = testGroup "Detecting Hits" [
   ]
 
 beats_armor_class = True @?=
-  attackHits 11 c
+  attackHits (armorclass c + 1) c
   where c = defaultCharacter
 
 meets_armor_class = True @?=
