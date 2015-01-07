@@ -1,4 +1,4 @@
-> module EverCraft where
+> module Character where
 >
 
 Some example code

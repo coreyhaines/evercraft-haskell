@@ -5,16 +5,14 @@ import Test.Framework.Providers.HUnit
 
 import Test.HUnit as HUnit
 
-myLast :: [a] -> a
-myLast (x:[]) = x
-myLast (_:xs) = myLast xs
+import Character
 
-problem1 :: Test.Framework.Test
-problem1 = testGroup "problem 1" [
-           testCase "the last element [1,2,3,4]"    $ 4   @?= myLast [1,2,3,4],
-           testCase "last element of ['x','y','z']" $ 'z' @?= myLast "xyz"
-           ]
+character_attributes :: Test.Framework.Test
+character_attributes = testGroup "Testing Character Attributes" [
+                       testCase "armor class defaults to 10" $ 10 @?=armorclass newCharacter,
+                       testCase "hitpoints default to 5" $ 5 @?=hitpoints newCharacter
+                       ]
 
-character_tests = [problem1]
+character_tests = [character_attributes]
 
 
