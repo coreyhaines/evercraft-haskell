@@ -5,10 +5,11 @@ import Test.Framework
 import Test.HUnit
 import CharacterTest
 import AttackingTests
+import AbilityTests
 
 import System.Exit
 
-tests = CharacterTest.tests ++ AttackingTests.tests
+tests = CharacterTest.tests ++ AttackingTests.tests ++ AbilityTests.tests
 
 -- main::IO()
 -- main = do

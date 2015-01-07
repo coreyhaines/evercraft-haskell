@@ -3,11 +3,16 @@ module EverCraft where
 data Alignment =  Good | Evil | Neutral
                   deriving Show
 
-data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer}
+data Abilities = Abilities {strength, dexterity, constitution, wisdom, intelligence, charisma::Integer}
+                  deriving Show
+defaultAbilities :: Abilities
+defaultAbilities = Abilities {strength=10, dexterity=10, constitution=10, wisdom=10, intelligence=10, charisma=10}
+newAbilities = defaultAbilities
+
+data Character = Character {name::String, alignment::Alignment, armorclass, hitpoints::Integer, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
-defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5}
-
+defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5, abilities=defaultAbilities}
 newCharacter = defaultCharacter
 
 subtractHitpoints :: Integer -> Character -> Character
