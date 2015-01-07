@@ -50,5 +50,17 @@ isAlive character = currentHitpoints character > 0
 attackHits :: Roll -> Character -> Bool
 attackHits roll character = roll >= armorClass character
 
+criticalRoll = 20
+baseNoncriticalDamage = 1
+baseCriticalDamage = 2
+
+isCriticalHit :: Roll -> Bool
+isCriticalHit roll = roll == criticalRoll
+
+damageForAttack :: Character -> Roll -> Damage
+damageForAttack character roll
+  | isCriticalHit roll = baseCriticalDamage
+  | otherwise = baseNoncriticalDamage
+
 runAttack :: Character -> Character -> Roll -> Character
 runAttack player opponent roll = opponent
