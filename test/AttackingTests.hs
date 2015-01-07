@@ -22,4 +22,11 @@ damage_calculation_tests = testGroup "Calculating the damage for a roll" [
   testCase "Modified character with critical roll gets modifier added to damage" $ damageForAttack player{abilities=newAbilities{strength=15}} criticalRoll @?= baseCriticalDamage + abilityModifier 15
   ]
 
-tests = [simple_attack_tests, damage_calculation_tests]
+checking_for_hit_tests :: Test.Framework.Test
+checking_for_hit_tests = testGroup "Checking to see if a roll hits" [
+    testCase "if roll is greater than armorclass, it hits" $ attackIsSuccessful player opponent (armorClass opponent + 1) @?= True,
+    testCase "if roll is equal to armorclass, it hits" $ attackIsSuccessful player opponent (armorClass opponent) @?= True,
+    testCase "if roll is less than armorclass, it misses" $ attackIsSuccessful player opponent (armorClass opponent - 1) @?= False
+  ]
+
+tests = [simple_attack_tests, damage_calculation_tests, checking_for_hit_tests]

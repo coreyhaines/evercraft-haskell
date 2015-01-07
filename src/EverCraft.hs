@@ -30,13 +30,12 @@ type Damage = Integer
 abilityModifier :: Integer -> Integer
 abilityModifier abilityScore = (abilityScore - 10) `div` 2
 
-modifiedAttackRoll :: Character -> Roll -> Roll
-modifiedAttackRoll character originalRoll =
-  originalRoll + abilityModifier (strength $ abilities character)
-
 modifiedDamage :: Character -> Damage -> Bool -> Damage
 modifiedDamage character originalDamage isCriticalHit = if damage < 1 then 1 else damage
   where damage = originalDamage + (abilityModifier (strength $ abilities character)) * if isCriticalHit then 2 else 1
+
+modifiedAttackRoll :: Character -> Roll -> Roll
+modifiedAttackRoll character originalRoll = originalRoll + abilityModifier (strength $ abilities character)
 
 armorClass :: Character -> Integer
 armorClass character = baseArmorClass + abilityModifier (dexterity $ abilities character)
@@ -47,15 +46,15 @@ addDamage amount character = character {damage=(damage character + amount)}
 isAlive :: Character -> Bool
 isAlive character = currentHitpoints character > 0
 
-attackHits :: Roll -> Character -> Bool
-attackHits roll character = roll >= armorClass character
-
 criticalRoll = 20
 baseNoncriticalDamage = 1
 baseCriticalDamage = 2
 
 isCriticalHit :: Roll -> Bool
 isCriticalHit roll = roll == criticalRoll
+
+attackIsSuccessful :: Character -> Character -> Roll -> Bool
+attackIsSuccessful player opponent roll = (modifiedAttackRoll player roll) >= armorClass opponent
 
 damageForAttack :: Character -> Roll -> Damage
 damageForAttack character roll = abilityModifier (strength $ abilities character) + if isCriticalHit roll then baseCriticalDamage else baseNoncriticalDamage
