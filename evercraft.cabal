@@ -8,6 +8,11 @@ homepage:       https://github.com/coreyhaines/evercraft_kata
 synopsis:       EverCraft Kata at Codemash
 build-type:     Custom
 
+executable evercraft
+  hs-source-dirs:  src
+  main-is:         Main.hs
+  build-depends:   base
+
 Test-Suite test-foo
     type:           exitcode-stdio-1.0
     hs-source-dirs: test, src
@@ -15,5 +20,5 @@ Test-Suite test-foo
     build-depends:  base,
                     HUnit,
                     test-framework,
-                    test-framework-hunit,
+                    test-framework-hunit
     Ghc-Options:    -threaded -O0

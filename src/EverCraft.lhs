@@ -1,4 +1,4 @@
-> module Character where
+> module EverCraft where
 >
 
 Some example code
@@ -16,3 +16,6 @@ c
 > defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, hitpoints=5}
 >
 > newCharacter = defaultCharacter
+
+> attackHits :: Character -> Integer -> Bool
+> attackHits character roll = True
