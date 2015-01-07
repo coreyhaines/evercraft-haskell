@@ -60,4 +60,6 @@ damageForAttack :: Character -> Roll -> Damage
 damageForAttack character roll = abilityModifier (strength $ abilities character) + if isCriticalHit roll then baseCriticalDamage else baseNoncriticalDamage
 
 runAttack :: Character -> Character -> Roll -> Character
-runAttack player opponent roll = opponent
+runAttack player opponent roll
+  | attackIsSuccessful player opponent roll = addDamage (damageForAttack player roll) opponent
+  | otherwise = opponent

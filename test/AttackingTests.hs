@@ -11,7 +11,8 @@ opponent = newCharacter{name="Opponent"}
 
 simple_attack_tests :: Test.Framework.Test
 simple_attack_tests = testGroup "Executing attacks with default players" [
-  testCase "No damage if roll is less than opponents armor class" $ currentHitpoints (runAttack player opponent (armorClass opponent - 1)) @?= maxHitpoints opponent
+  testCase "No damage if attack is unsuccessful" $ currentHitpoints (runAttack player opponent (armorClass opponent - 1)) @?= maxHitpoints opponent,
+  testCase "Opponent is damaged if attack is successful" $ currentHitpoints (runAttack player opponent (armorClass opponent)) @?= maxHitpoints opponent - damageForAttack player (armorClass opponent)
   ]
 
 damage_calculation_tests :: Test.Framework.Test
