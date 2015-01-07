@@ -26,4 +26,23 @@ less_than_armor_class = False @?=
   attackHits (armorclass c - 1) c
   where c = defaultCharacter
 
-tests = [detecting_hit_tests]
+attacking_tests :: Test.Framework.Test
+attacking_tests = testGroup "Attacking" [
+  testCase "Character's hit points don't change if no hit" no_change_if_not_hit,
+  testCase "Character loses 1 hit point if hit" lose_a_hitpoint,
+  testCase "Character loses 2 hit point if a natural 20 is rolled" natural_20_loses_2_hitpoints
+  ]
+
+no_change_if_not_hit = hitpoints c' @?= hitpoints c
+  where c  = defaultCharacter
+        c' = attack c (armorclass c - 1)
+
+lose_a_hitpoint = hitpoints c' @?= (hitpoints c - 1)
+  where c  = defaultCharacter
+        c' = attack c (armorclass c + 1)
+
+natural_20_loses_2_hitpoints = hitpoints c' @?= (hitpoints c - 2)
+  where c  = defaultCharacter
+        c' = attack c 20
+
+tests = [detecting_hit_tests, attacking_tests]
