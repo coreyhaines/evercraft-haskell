@@ -50,9 +50,5 @@ isAlive character = currentHitpoints character > 0
 attackHits :: Roll -> Character -> Bool
 attackHits roll character = roll >= armorClass character
 
-attack :: Character -> Roll -> Character
-attack character roll
-  | roll == 20 = addDamage 2 character
-  | attackHits roll character = addDamage 1 character
-  | otherwise = character
-
+runAttack :: Character -> Character -> Roll -> Character
+runAttack player opponent roll = opponent
