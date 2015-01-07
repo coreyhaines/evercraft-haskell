@@ -11,3 +11,6 @@ getCharacterName (MakeCharacter (name, _)) = name
 
 setCharacterName :: Character -> String -> Character
 setCharacterName (MakeCharacter (_, alignment)) newName = MakeCharacter (newName, alignment)
+
+getCharacterAlignment :: Character -> Alignment
+getCharacterAlignment (MakeCharacter (_, alignment)) = alignment
