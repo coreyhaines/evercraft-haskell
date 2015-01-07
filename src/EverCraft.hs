@@ -57,7 +57,11 @@ attackIsSuccessful :: Character -> Character -> Roll -> Bool
 attackIsSuccessful player opponent roll = (modifiedAttackRoll player roll) >= armorClass opponent
 
 damageForAttack :: Character -> Roll -> Damage
-damageForAttack character roll = abilityModifier (strength $ abilities character) + if isCriticalHit roll then baseCriticalDamage else baseNoncriticalDamage
+damageForAttack character roll = abilityModifier (strength $ abilities character) + damage
+    where
+  damage
+    | isCriticalHit roll = baseCriticalDamage
+    | otherwise = baseNoncriticalDamage
 
 runAttack :: Character -> Character -> Roll -> Character
 runAttack player opponent roll
