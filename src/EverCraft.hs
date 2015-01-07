@@ -30,10 +30,6 @@ type Damage = Integer
 abilityModifier :: Integer -> Integer
 abilityModifier abilityScore = (abilityScore - 10) `div` 2
 
-modifiedDamage :: Character -> Damage -> Bool -> Damage
-modifiedDamage character originalDamage isCriticalHit = if damage < 1 then 1 else damage
-  where damage = originalDamage + (abilityModifier (strength $ abilities character)) * if isCriticalHit then 2 else 1
-
 modifiedAttackRoll :: Character -> Roll -> Roll
 modifiedAttackRoll character originalRoll = originalRoll + abilityModifier (strength $ abilities character)
 
@@ -56,12 +52,16 @@ isCriticalHit roll = roll == criticalRoll
 attackIsSuccessful :: Character -> Character -> Roll -> Bool
 attackIsSuccessful player opponent roll = (modifiedAttackRoll player roll) >= armorClass opponent
 
-damageForAttack :: Character -> Roll -> Damage
-damageForAttack character roll = abilityModifier (strength $ abilities character) + damage
+rawDamageForAttack :: Character -> Roll -> Damage
+rawDamageForAttack character roll = damage + abilityModifier (strength $ abilities character) * if isCriticalHit roll then 2 else 1
     where
   damage
     | isCriticalHit roll = baseCriticalDamage
     | otherwise = baseNoncriticalDamage
+
+damageForAttack :: Character -> Roll -> Damage
+damageForAttack character roll = if totalDamage >= 1 then totalDamage else 1
+  where totalDamage = rawDamageForAttack character roll
 
 runAttack :: Character -> Character -> Roll -> Character
 runAttack player opponent roll
