@@ -16,12 +16,12 @@ defaultCharacter :: Character
 defaultCharacter = Character {name="", alignment=Neutral, armorclass=10, damage=0, abilities=defaultAbilities}
 newCharacter = defaultCharacter
 
-maxhitpoints :: Character -> Integer
-maxhitpoints character = if hp < 1 then 1 else hp
+maxHitpoints :: Character -> Integer
+maxHitpoints character = if hp < 1 then 1 else hp
   where hp = baseHitpoints + (abilityModifier (constitution $ abilities character))
 
-hitpoints :: Character -> Integer
-hitpoints character = maxhitpoints character - damage character
+currentHitpoints :: Character -> Integer
+currentHitpoints character = maxHitpoints character - damage character
 
 type Roll = Integer
 type Damage = Integer
@@ -44,7 +44,7 @@ addDamage :: Damage -> Character -> Character
 addDamage amount character = character {damage=(damage character + amount)}
 
 isAlive :: Character -> Bool
-isAlive character = hitpoints character > 0
+isAlive character = currentHitpoints character > 0
 
 attackHits :: Roll -> Character -> Bool
 attackHits roll character = roll >= armorclass character

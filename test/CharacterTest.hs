@@ -15,11 +15,11 @@ character_attributes = testGroup "Testing Character Attributes" [
 
 hitpoint_calculation_tests :: Test.Framework.Test
 hitpoint_calculation_tests = testGroup "Calculating hitpoints" [
-  testCase "With 0 damage, player has base hitpoints" $ hitpoints defaultCharacter @?= baseHitpoints,
-  testCase "Constitution modifier adjusts hitpoints" $ hitpoints (newCharacter{abilities=newAbilities{constitution=19}}) @?= baseHitpoints + abilityModifier 19,
-  testCase "Constitution modifier can't adjust lower than 1" $ hitpoints (newCharacter{abilities=newAbilities{constitution=1}}) @?= 1,
-  testCase "Adding 1 damage subtracts one from hitpoint" $ hitpoints (addDamage 1 defaultCharacter) @?= (hitpoints defaultCharacter - 1),
-  testCase "Adding damage twice subtracts both from hitpoints" $ hitpoints (addDamage 2 (addDamage 1 defaultCharacter)) @?= baseHitpoints - 3
+  testCase "With 0 damage, player has base hitpoints" $ currentHitpoints defaultCharacter @?= baseHitpoints,
+  testCase "Constitution modifier adjusts maxhitpoints" $ maxHitpoints (newCharacter{abilities=newAbilities{constitution=19}}) @?= baseHitpoints + abilityModifier 19,
+  testCase "Constitution modifier can't adjust maxhitpoints lower than 1" $ maxHitpoints (newCharacter{abilities=newAbilities{constitution=1}}) @?= 1,
+  testCase "Adding 1 damage subtracts one from currenthitpoint" $ currentHitpoints (addDamage 1 defaultCharacter) @?= (currentHitpoints defaultCharacter - 1),
+  testCase "Adding damage twice subtracts both from currenthitpoints" $ currentHitpoints (addDamage 2 (addDamage 1 defaultCharacter)) @?= baseHitpoints - 3
   ]
 
 alive_tests :: Test.Framework.Test

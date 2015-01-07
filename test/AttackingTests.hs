@@ -33,15 +33,15 @@ attacking_tests = testGroup "Attacking" [
   testCase "Character loses 2 hit point if a natural 20 is rolled" natural_20_loses_2_hitpoints
   ]
 
-no_change_if_not_hit = hitpoints c' @?= hitpoints c
+no_change_if_not_hit = currentHitpoints c' @?= currentHitpoints c
   where c  = defaultCharacter
         c' = attack c (armorclass c - 1)
 
-lose_a_hitpoint = hitpoints c' @?= (hitpoints c - 1)
+lose_a_hitpoint = currentHitpoints c' @?= (currentHitpoints c - 1)
   where c  = defaultCharacter
         c' = attack c (armorclass c + 1)
 
-natural_20_loses_2_hitpoints = hitpoints c' @?= (hitpoints c - 2)
+natural_20_loses_2_hitpoints = currentHitpoints c' @?= (currentHitpoints c - 2)
   where c  = defaultCharacter
         c' = attack c 20
 
