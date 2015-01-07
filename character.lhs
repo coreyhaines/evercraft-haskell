@@ -4,6 +4,10 @@
 Some example code
 -----------------
 let c = MakeCharacter ("Corey", Good)
+c
+getName c
+let c2 = setName c "Sarah"
+c2
 
 >
 > data Alignment =  Good | Evil | Neutral
@@ -12,11 +16,11 @@ let c = MakeCharacter ("Corey", Good)
 > newtype Character = MakeCharacter (String, Alignment)
 >                     deriving Show
 >
-> getCharacterName :: Character -> String
-> getCharacterName (MakeCharacter (name, _)) = name
+> getName :: Character -> String
+> getName (MakeCharacter (name, _)) = name
 >
-> setCharacterName :: Character -> String -> Character
-> setCharacterName (MakeCharacter (_, alignment)) newName = MakeCharacter (newName, alignment)
+> setName :: Character -> String -> Character
+> setName (MakeCharacter (_, alignment)) newName = MakeCharacter (newName, alignment)
 >
-> getCharacterAlignment :: Character -> Alignment
-> getCharacterAlignment (MakeCharacter (_, alignment)) = alignment
+> getAlignment :: Character -> Alignment
+> getAlignment (MakeCharacter (_, alignment)) = alignment
