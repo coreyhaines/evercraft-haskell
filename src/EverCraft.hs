@@ -70,16 +70,14 @@ damageForAttack :: Character -> Roll -> Damage
 damageForAttack character roll = if totalDamage >= 1 then totalDamage else 1
   where totalDamage = rawDamageForAttack character roll
 
-data AttackResult = AttackResult Character Character
+data AttackResult = AttackResult{player,opponent::Character}
                     deriving Show
 opponentResult :: AttackResult -> Character
 opponentResult (AttackResult _ p) = p
-playerResult :: AttackResult -> Character
-playerResult (AttackResult p _) = p
 
 runAttack :: Character -> Character -> Roll -> AttackResult
 runAttack player opponent roll
-  | attackIsSuccessful player opponent roll = AttackResult new_player new_opponent
-  | otherwise = AttackResult player opponent
+  | attackIsSuccessful player opponent roll = AttackResult{player=new_player,opponent=new_opponent}
+  | otherwise = AttackResult{player=player, opponent=opponent}
     where new_player = (addExperience baseExperienceForAttack player)
           new_opponent = (addDamage (damageForAttack player roll) opponent)

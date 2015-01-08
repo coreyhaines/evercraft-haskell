@@ -6,13 +6,17 @@ import Test.HUnit as HUnit
 
 import EverCraft
 
-player = newCharacter{name="Player"}
-opponent = newCharacter{name="Opponent"}
+basePlayer = newCharacter{name="Player"}
+baseOpponent = newCharacter{name="Opponent"}
 
 raw_experience_tests :: Test.Framework.Test
 raw_experience_tests = testGroup "Getting experience from attacking" [
-  testCase "No experience if attack is unsuccessful" $ currentExperience (playerResult (runAttack player opponent (armorClass opponent - 1))) @?= currentExperience player,
-  testCase "10 experience points are given if attack is successful" $ currentExperience (playerResult (runAttack player opponent (armorClass opponent))) @?= baseExperienceForAttack + currentExperience player
+  testCase "No experience if attack is unsuccessful" $
+      let newPlayer = player (runAttack basePlayer baseOpponent (armorClass baseOpponent - 1))
+      in currentExperience newPlayer @?= currentExperience basePlayer,
+  testCase "10 experience points are given if attack is successful" $
+      let newPlayer = player (runAttack basePlayer baseOpponent (armorClass baseOpponent))
+      in currentExperience newPlayer @?= baseExperienceForAttack + currentExperience basePlayer
   ]
 
 tests = [raw_experience_tests]
