@@ -78,11 +78,8 @@ playerResult :: AttackResult -> Character
 playerResult (AttackResult p _) = p
 
 runAttack :: Character -> Character -> Roll -> AttackResult
-runAttack player opponent roll = AttackResult new_player new_opponent
-    where
-  new_opponent
-    | attackIsSuccessful player opponent roll = addDamage (damageForAttack player roll) opponent
-    | otherwise = opponent
-  new_player
-    | attackIsSuccessful player opponent roll = addExperience baseExperienceForAttack player
-    | otherwise = player
+runAttack player opponent roll
+  | attackIsSuccessful player opponent roll = AttackResult new_player new_opponent
+  | otherwise = AttackResult player opponent
+    where new_player = (addExperience baseExperienceForAttack player)
+          new_opponent = (addDamage (damageForAttack player roll) opponent)
