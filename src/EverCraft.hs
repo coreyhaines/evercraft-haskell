@@ -72,8 +72,6 @@ damageForAttack character roll = if totalDamage >= 1 then totalDamage else 1
 
 data AttackResult = AttackResult{player,opponent::Character}
                     deriving Show
-opponentResult :: AttackResult -> Character
-opponentResult (AttackResult _ p) = p
 
 runAttack :: Character -> Character -> Roll -> AttackResult
 runAttack player opponent roll
