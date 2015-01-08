@@ -11,8 +11,8 @@ opponent = newCharacter{name="Opponent"}
 
 simple_attack_tests :: Test.Framework.Test
 simple_attack_tests = testGroup "Executing attacks with default players" [
-  testCase "No damage if attack is unsuccessful" $ currentHitpoints (runAttack player opponent (armorClass opponent - 1)) @?= maxHitpoints opponent,
-  testCase "Opponent is damaged if attack is successful" $ currentHitpoints (runAttack player opponent (armorClass opponent)) @?= maxHitpoints opponent - damageForAttack player (armorClass opponent)
+  testCase "No damage if attack is unsuccessful" $ currentHitpoints (opponentResult (runAttack player opponent (armorClass opponent - 1))) @?= maxHitpoints opponent,
+  testCase "Opponent is damaged if attack is successful" $ currentHitpoints (opponentResult (runAttack player opponent (armorClass opponent))) @?= maxHitpoints opponent - damageForAttack player (armorClass opponent)
   ]
 
 damage_calculation_tests :: Test.Framework.Test
@@ -29,6 +29,10 @@ checking_for_hit_tests = testGroup "Checking to see if a roll hits" [
   testCase "if roll is greater than armorclass, it hits" $ attackIsSuccessful player opponent (armorClass opponent + 1) @?= True,
   testCase "if roll is equal to armorclass, it hits" $ attackIsSuccessful player opponent (armorClass opponent) @?= True,
   testCase "if roll is less than armorclass, it misses" $ attackIsSuccessful player opponent (armorClass opponent - 1) @?= False
+  ]
+
+calculating_experience_tests :: Test.Framework.Test
+calculating_experience_tests = testGroup "Player gets experience based on attack results" [
   ]
 
 

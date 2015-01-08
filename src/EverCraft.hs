@@ -63,7 +63,16 @@ damageForAttack :: Character -> Roll -> Damage
 damageForAttack character roll = if totalDamage >= 1 then totalDamage else 1
   where totalDamage = rawDamageForAttack character roll
 
-runAttack :: Character -> Character -> Roll -> Character
-runAttack player opponent roll
-  | attackIsSuccessful player opponent roll = addDamage (damageForAttack player roll) opponent
-  | otherwise = opponent
+data AttackResult = AttackResult Character Character
+                    deriving Show
+opponentResult :: AttackResult -> Character
+opponentResult (AttackResult _ p) = p
+playerResult :: AttackResult -> Character
+playerResult (AttackResult p _) = p
+
+runAttack :: Character -> Character -> Roll -> AttackResult
+runAttack player opponent roll = AttackResult player new_opponent
+    where
+  new_opponent
+    | attackIsSuccessful player opponent roll = addDamage (damageForAttack player roll) opponent
+    | otherwise = opponent
