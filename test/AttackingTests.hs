@@ -32,9 +32,9 @@ damage_calculation_tests = testGroup "Calculating the damage for a roll" [
 
 checking_for_hit_tests :: Test.Framework.Test
 checking_for_hit_tests = testGroup "Checking to see if a roll hits" [
-  testCase "if roll is greater than armorclass, it hits" $ attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent + 1) @?= True,
-  testCase "if roll is equal to armorclass, it hits" $ attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent) @?= True,
-  testCase "if roll is less than armorclass, it misses" $ attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent - 1) @?= False
+  testCase "if roll is greater than armorclass, it hits" $ assertBool "" (attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent + 1)),
+  testCase "if roll is equal to armorclass, it hits" $ assertBool "" (attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent)),
+  testCase "if roll is less than armorclass, it misses" $ assertBool "" (not(attackIsSuccessful basePlayer baseOpponent (armorClass baseOpponent - 1)))
   ]
 
 calculating_experience_tests :: Test.Framework.Test
