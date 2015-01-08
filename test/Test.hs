@@ -6,10 +6,11 @@ import Test.HUnit
 import CharacterTest
 import AttackingTests
 import AbilityTests
+import ExperienceTests
 
 import System.Exit
 
-tests = CharacterTest.tests ++ AttackingTests.tests ++ AbilityTests.tests
+tests = CharacterTest.tests ++ AttackingTests.tests ++ AbilityTests.tests ++ ExperienceTests.tests
 
 -- main::IO()
 -- main = do

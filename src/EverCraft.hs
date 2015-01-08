@@ -11,6 +11,7 @@ newAbilities = defaultAbilities
 
 baseHitpoints = 5
 baseArmorClass = 10
+baseExperienceForAttack = 10
 data Character = Character {name::String, alignment::Alignment, experience::Integer, damage::Damage, abilities::Abilities}
                   deriving Show
 defaultCharacter :: Character
@@ -23,6 +24,12 @@ maxHitpoints character = if hp < 1 then 1 else hp
 
 currentHitpoints :: Character -> Integer
 currentHitpoints character = maxHitpoints character - damage character
+
+currentExperience :: Character -> Integer
+currentExperience = experience
+
+addExperience :: Integer -> Character -> Character
+addExperience amount player = player{experience=(currentExperience player) + amount}
 
 type Roll = Integer
 type Damage = Integer
@@ -71,8 +78,11 @@ playerResult :: AttackResult -> Character
 playerResult (AttackResult p _) = p
 
 runAttack :: Character -> Character -> Roll -> AttackResult
-runAttack player opponent roll = AttackResult player new_opponent
+runAttack player opponent roll = AttackResult new_player new_opponent
     where
   new_opponent
     | attackIsSuccessful player opponent roll = addDamage (damageForAttack player roll) opponent
     | otherwise = opponent
+  new_player
+    | attackIsSuccessful player opponent roll = addExperience baseExperienceForAttack player
+    | otherwise = player
