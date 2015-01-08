@@ -31,8 +31,9 @@ currentExperience = experience
 addExperience :: Integer -> Character -> Character
 addExperience amount player = player{experience=(currentExperience player) + amount}
 
+levelLedge = 1000
 currentLevel :: Character -> Integer
-currentLevel player = 1 + currentExperience player `div` 1000
+currentLevel player = 1 + currentExperience player `div` levelLedge
 
 type Roll = Integer
 type Damage = Integer
