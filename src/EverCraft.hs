@@ -20,7 +20,8 @@ newCharacter = defaultCharacter
 
 maxHitpoints :: Character -> Integer
 maxHitpoints character = if hp < 1 then 1 else hp
-  where hp = baseHitpoints + (abilityModifier (constitution $ abilities character))
+  where hp = baseHitpoints + (abilityModifier (constitution $ abilities character)) + levelModifier
+        levelModifier = 5 * (currentLevel character - 1)
 
 currentHitpoints :: Character -> Integer
 currentHitpoints character = maxHitpoints character - damage character
@@ -42,7 +43,8 @@ abilityModifier :: Integer -> Integer
 abilityModifier abilityScore = (abilityScore - 10) `div` 2
 
 modifiedAttackRoll :: Character -> Roll -> Roll
-modifiedAttackRoll character originalRoll = originalRoll + abilityModifier (strength $ abilities character)
+modifiedAttackRoll character originalRoll = originalRoll + abilityModifier (strength $ abilities character) + levelModifier
+  where levelModifier = currentLevel character `div` 2
 
 armorClass :: Character -> Integer
 armorClass character = baseArmorClass + abilityModifier (dexterity $ abilities character)
