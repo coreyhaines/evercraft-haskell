@@ -11,8 +11,14 @@ baseOpponent = newCharacter{name="Opponent"}
 
 simple_attack_tests :: Test.Framework.Test
 simple_attack_tests = testGroup "Executing attacks with default players" [
-  testCase "No damage if attack is unsuccessful" $ currentHitpoints (opponentResult (runAttack basePlayer baseOpponent (armorClass baseOpponent - 1))) @?= maxHitpoints baseOpponent,
-  testCase "Opponent is damaged if attack is successful" $ currentHitpoints (opponentResult (runAttack basePlayer baseOpponent (armorClass baseOpponent))) @?= maxHitpoints baseOpponent - damageForAttack basePlayer (armorClass baseOpponent)
+  testCase "No damage if attack is unsuccessful" $
+    let newOpponent = opponent (runAttack basePlayer baseOpponent (armorClass baseOpponent - 1))
+        expectedHitpoints = maxHitpoints baseOpponent
+    in currentHitpoints newOpponent @?= expectedHitpoints,
+  testCase "Opponent is damaged if attack is successful" $
+    let newOpponent = opponent (runAttack basePlayer baseOpponent (armorClass baseOpponent))
+        expectedHitPoints = maxHitpoints baseOpponent - damageForAttack basePlayer (armorClass baseOpponent)
+    in currentHitpoints newOpponent @?= expectedHitPoints
   ]
 
 damage_calculation_tests :: Test.Framework.Test
